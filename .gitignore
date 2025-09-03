@@ -27,3 +27,8 @@ dist-ssr
 src/assets/*.webp
 src/assets/a.png
 src/assets/aa.jpg
+
+back/t.js
+front/src/t.jsx
+front/src/components/*.jsx
+front/src/t.css
