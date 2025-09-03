@@ -13,6 +13,8 @@ body {
     min-height:  100vh;
     background: #23242a;
 }
+
+/**----------------------LOGIN PAGE CLASS BOX STYLE----------*/
 .box {
     position: relative;
     width: 400px;
@@ -47,7 +49,7 @@ body {
     animation: animate 6s linear infinite;
     animation-delay: -3s;
 }
-/**----------------------SIGN UP BOX STYLE----------*/
+/**----------------------SIGN UP CLASS BOXUP STYLE----------*/
 .boxUp {
     position: relative;
     width: 380px;
@@ -238,7 +240,7 @@ body {
         transform: rotate(0deg);
     }
     100%
-    {/**------------LOGIN PAGE 2--------------**/
+    {
         transform: rotate(360deg);
     }
 }
@@ -356,3 +358,4 @@ body {
     0 0 40px rgba(0, 0, 255, 0.3),
     0 0 50px rgba(255, 255, 0, 0.2)
 }
+/**--------------------------------*/
