@@ -1,0 +1,25 @@
+/**--------------pie chart style------------------*/
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.chart-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #111;
+}
+
+.recharts-text, .recharts-legend-wrapper text {
+
+    font-size: 0.85rem;
+}
+
+/**--------------------------------*/
