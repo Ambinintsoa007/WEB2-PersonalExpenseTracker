@@ -1,0 +1,12 @@
+/**-----------------bar chart--------------*/
+.bar-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 1 rem rgba (0 , 0, 0, 0.15);
+    width: 40rem;
+    height: 20rem;
+}
