@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import "./PieChartExpenseCategories.css";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import "../App.css";
 
 export function PieChartExpenseCategories() {
     const [depenses, setDepenses] = useState([]);
@@ -23,38 +23,66 @@ export function PieChartExpenseCategories() {
 
     const total = data.reduce((sum, d) => sum + d.value, 0);
 
-    return (
-        <div className="chart-container">
-            <h1 className="chart-title">📊 Dépenses par Catégorie</h1>
-            <PieChart width={600} height={500}>
-                <Pie
-                    data={data}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={130}
-                    labelLine={true} // ligne vers l'extérieur
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    fill="#8884d8"
-                    dataKey="value"
-                >
-                    {data.map((entry, index) => (
-                        <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                        />
-                    ))}
+    // Label custom mais placé à l'intérieur des parts
+    const renderInnerLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name }) => {
+        const RADIAN = Math.PI / 180;
+        const radius = innerRadius + (outerRadius - innerRadius) / 2; // au milieu de la part
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-                </Pie>
-                <Tooltip />
-                <Legend
-                    formatter={(value) => {
-                        const item = data.find((d) => d.name === value);
-                        if (!item) return value;
-                        const percent = ((item.value / total) * 100).toFixed(0);
-                        return `${value} ${percent}%`;
-                    }}
-                />
-            </PieChart>
+        return (
+            <text
+                x={x}
+                y={y}
+                fill="#fff"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontSize={12}
+                fontWeight="bold"
+            >
+                {`${name} ${(percent * 100).toFixed(0)}%`}
+            </text>
+        );
+    };
+
+    return (
+        <div className="chart-container dark">
+            <h1 className="chart-title">📊 Dépenses par Catégorie</h1>
+            <div className="chart-wrapper">
+                <ResponsiveContainer width="100%" height={400}>
+                    <PieChart>
+                        <Pie
+                            data={data}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius="40%"
+                            outerRadius="70%"
+                            dataKey="value"
+                            labelLine={false}
+                            label={renderInnerLabel}
+                        >
+                            {data.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={COLORS[index % COLORS.length]}
+                                />
+                            ))}
+                        </Pie>
+                        <Tooltip
+                            contentStyle={{ backgroundColor: "#222", border: "none", color: "#fff" }}
+                        />
+                        <Legend
+                            wrapperStyle={{ color: "#f5f5f5", fontSize: "13px" }}
+                            formatter={(value) => {
+                                const item = data.find((d) => d.name === value);
+                                if (!item) return value;
+                                const percent = ((item.value / total) * 100).toFixed(0);
+                                return `${value} ${percent}%`;
+                            }}
+                        />
+                    </PieChart>
+                </ResponsiveContainer>
+            </div>
         </div>
     );
 }
