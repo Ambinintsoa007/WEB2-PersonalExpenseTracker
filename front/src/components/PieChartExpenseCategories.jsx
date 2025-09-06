@@ -23,8 +23,8 @@ export function PieChartExpenseCategories() {
 
     const total = data.reduce((sum, d) => sum + d.value, 0);
 
-    // Label custom mais placé à l'intérieur des parts
-    const renderInnerLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name }) => {
+    // Label custom mais affichant uniquement le %
+    const renderInnerLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
         const RADIAN = Math.PI / 180;
         const radius = innerRadius + (outerRadius - innerRadius) / 2; // au milieu de la part
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -40,7 +40,7 @@ export function PieChartExpenseCategories() {
                 fontSize={12}
                 fontWeight="bold"
             >
-                {`${name} ${(percent * 100).toFixed(0)}%`}
+                {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
     };
@@ -69,7 +69,7 @@ export function PieChartExpenseCategories() {
                             ))}
                         </Pie>
                         <Tooltip
-                            contentStyle={{ backgroundColor: "#222", border: "none", color: "#fff" }}
+                            contentStyle={{ backgroundColor: "#fff", border: "none", color: "#fff" }}
                         />
                         <Legend
                             wrapperStyle={{ color: "#f5f5f5", fontSize: "13px" }}
