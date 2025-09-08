@@ -1,6 +1,7 @@
 import pool from "../db/index.js";
 import fs from "fs";
 
+
 //    Créer une dépense
 export async function createExpense(req, res) {
   try {
@@ -45,7 +46,8 @@ export async function createExpense(req, res) {
   }
 }
 
-// 📌 Récupérer toutes les dépenses de l’utilisateur (option filtre par dates)
+
+//  Récupérer toutes les dépenses de l’utilisateur (option filtre par dates)
 export async function getExpenses(req, res) {
   try {
     const { start_date, end_date } = req.query;
@@ -65,7 +67,7 @@ export async function getExpenses(req, res) {
   }
 }
 
-// 📌 Récupérer une dépense par ID
+//  Récupérer une dépense par ID
 export async function getExpenseById(req, res) {
   try {
     const { id } = req.params;
@@ -85,7 +87,7 @@ export async function getExpenseById(req, res) {
   }
 }
 
-// 📌 Mettre à jour une dépense
+//  Mettre à jour une dépense
 export async function updateExpense(req, res) {
   try {
     const { id } = req.params;
@@ -135,7 +137,7 @@ export async function updateExpense(req, res) {
   }
 }
 
-// 📌 Supprimer une dépense
+//  Supprimer une dépense
 export async function deleteExpense(req, res) {
   try {
     const { id } = req.params;
