@@ -18,38 +18,48 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        // Check if user is already logged in (from localStorage)
         const savedUser = localStorage.getItem("user")
         const savedAuth = localStorage.getItem("isAuthenticated")
+        const savedToken = localStorage.getItem("token")
 
-        if (savedUser && savedAuth === "true") {
-            setUser(JSON.parse(savedUser))
-            setIsAuthenticated(true)
+
+
+        if (savedUser && savedAuth === "true" && savedToken) {
+            try{
+                const user = JSON.parse(savedUser)
+                setUser(user)
+                setIsAuthenticated(true)
+            } catch (error) {
+                localStorage.clear()
+            }
+        } else {
+            localStorage.clear()
         }
         setLoading(false)
     }, [])
 
     const login = async (credentials) => {
         try {
-            // TODO: Replace with actual API call
-            // const response = await fetch('/api/login', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(credentials)
-            // });
-            // const userData = await response.json();
+            const response = await  fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+            })
 
-            // Temporary mock login for development
-            const userData = {
-                id: 1,
-                username: "User",
-                email: credentials.email,
-                createdAt: new Date().toISOString(),
+            if(!response.ok) {
+                const ErrorData = await response.json()
+                throw new Error(`erroe :  ${ErrorData.error}` || 'login failed')
             }
+            const { token } = await response.json()
+
+            const userResponse = await  fetch(`/api/auth/me`, {headers: { 'Authorization': `Bearer ${token}` }})
+
+            const userData = await userResponse.json()
 
             setUser(userData)
             setIsAuthenticated(true)
             localStorage.setItem("user", JSON.stringify(userData))
+            localStorage.setItem("token", token)
             localStorage.setItem("isAuthenticated", "true")
 
             return { success: true }
@@ -61,28 +71,28 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (userData) => {
         try {
-            // TODO: Replace with actual API call
-            // const response = await fetch('/api/signup', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(userData)
-            // });
-            // const newUser = await response.json();
+            const response = await  fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userData.email,
+                    password: userData.password
+                })
+            })
 
-            // Temporary mock signup for development
-            const newUser = {
-                id: Date.now(),
-                username: userData.username,
-                email: userData.email,
-                createdAt: new Date().toISOString(),
+            if(!response.ok) {
+                const errorData = await response.json()
+                throw new Error(`error :  ${errorData.error}` || 'signup failed')
             }
 
-            setUser(newUser)
-            setIsAuthenticated(true)
-            localStorage.setItem("user", JSON.stringify(newUser))
-            localStorage.setItem("isAuthenticated", "true")
+            const newUser = await response.json()
 
-            return { success: true }
+            const loginResult = await login({
+                email: userData.email,
+                password: userData.password
+            })
+            return loginResult;
+
         } catch (error) {
             console.error("Signup error:", error)
             return { success: false, error: error.message }
@@ -94,6 +104,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false)
         localStorage.removeItem("user")
         localStorage.removeItem("isAuthenticated")
+        localStorage.removeItem("token")
     }
 
     const value = {
