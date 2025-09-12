@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
-
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: #23242a;
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .box {
