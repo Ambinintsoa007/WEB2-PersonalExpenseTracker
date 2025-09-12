@@ -7,12 +7,12 @@ import pool from "./db/index.js"; // pool sera l’objet exporté par module.exp
 
 
 // Routes
-import authRoutes from "./routes/auth.js";
+import authRoutes from "./routes/authRoute.js";
 import expenseRoutes from "./routes/expenses.js";
 import incomeRoutes from "./routes/incomes.js";
 import categoryRoutes from "./routes/categories.js";
 import summaryRoutes from "./routes/summary.js";
-import userRoutes from "./routes/user.js";
+import userRoutes from "./routes/userRoute.js";
 import receiptRoutes from "./routes/receipts.js";
 
 // Middleware
