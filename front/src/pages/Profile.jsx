@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useData } from "../context/DataContext.jsx";
 import '../App.css'
+import {useAuth} from "../context/AuthContext.jsx";
 
 const Profile = ({ darkMode, setDarkMode }) => {
     const { profile, updateProfile } = useData();
     const [isEditingUsername, setIsEditingUsername] = useState(false);
     const [newUsername, setNewUsername] = useState(profile.username);
+    const { logout } = useAuth()
 
     const handleSaveUsername = () => {
         if(newUsername.trim()){
@@ -111,6 +113,14 @@ const Profile = ({ darkMode, setDarkMode }) => {
                                     <span className="toggle-slider"></span>
                                 </label>
                             </div>
+                        </div>
+
+                        <div className="setting-item">
+                            <div className="setting-info">
+                                <h4>Logout</h4>
+                                <p>Logout of your account</p>
+                            </div>
+                            <button className="btn btn-outline btn-danger" onClick={logout}>Sign out</button>
                         </div>
                     </div>
                 </div>
