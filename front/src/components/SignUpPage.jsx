@@ -1,4 +1,4 @@
-import '../App.css'
+import './SignUpPage.css'
 
 export const SignUpPage = () => {
     return (

@@ -1,5 +1,5 @@
-import '../App.css'
-    ''
+import './LoginPage.css'
+
 export const LoginPage = () => {
     return (
         <>
@@ -20,7 +20,7 @@ export const LoginPage = () => {
                     <div className='links'>
                         <a href="#" >Forgot Password</a>
                         <p>| Don't have an account?</p>
-                        <a href="#" onClick={() => setIsSigningIn(!isSigningIn)}>Sign Up</a>
+                        <a href="#">Sign Up</a>
                     </div>
                     <input type="submit" value="Login"/>
                 </form>
