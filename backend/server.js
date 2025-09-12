@@ -4,34 +4,34 @@
 
 
 
-// const express = require('express');
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
-// const app = express();
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const app = express();
 
-// const users = []
-// const expenses = []
-// const categories = [
-//     { id: '1', name: 'Food' },
-//     { id: '2', name: 'Transport' },
-//     { id: '3', name: 'Entertainment'}
-// ]
+const users = []
+const expenses = []
+const categories = [
+    { id: '1', name: 'Food' },
+    { id: '2', name: 'Transport' },
+    { id: '3', name: 'Entertainment'}
+ ]
 
-// app.use(express.json())
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.post('/api/auth/signup', async (req, res) => {
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = {
+       id: Date.now().toString()
+   },
+         email: email,
+        password: hashedPassword
+    }
 
-// app.post('/api/auth/signup', async (req, res) => {
-//     const { email, password } = req.body;
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     const newUser = {
-//         id: Date.now().toString(),
-//         email: email,
-//         password: hashedPassword
-//     }
-
-//     users.push(newUser);
-//     res.status(201).json({message: 'new user created'});
-// })
+    users.push(newUser);
+res.status(201).json({message: 'new user created'});
+})
 
 // app.post('/api/auth/login', async (req, res) => {
 //     const { email, password } = req.body;
