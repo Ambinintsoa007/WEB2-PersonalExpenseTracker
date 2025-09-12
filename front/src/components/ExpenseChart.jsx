@@ -64,7 +64,7 @@ export const ExpensesChart = () => {
                     {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${token}`, // Ajout de l'en-tête avec le token
+                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json',
                         },
                     });
@@ -73,7 +73,12 @@ export const ExpensesChart = () => {
                     throw new Error(`Erreur HTTP: ${response.status}`);
                 }
 
-                const { expenses, salary } = await response.json();
+                const data = await response.json();
+                console.log("Données API:", data);
+
+                const expenses = data.map(item => parseFloat(item.total_expenses));
+                const salary = data.map(item => parseFloat(item.total_incomes));
+
                 setChartData((prevData) => ({
                     ...prevData,
                     datasets: [
