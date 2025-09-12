@@ -151,3 +151,450 @@ body.dark-mode {
     margin-bottom: 0.5rem;
     color: #2d3748;
 }
+
+/* Dark mode page header with neon gradient */
+.dark-mode .page-header h1 {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.dark-mode .page-header p {
+    color: #a0a0b8;
+}
+
+/* Button styles with light mode default */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode button hover with neon glow */
+.dark-mode .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.3);
+}
+
+.btn-primary {
+    background-color: #3182ce;
+    color: white;
+}
+
+/* Dark mode primary button with neon gradient */
+.dark-mode .btn-primary {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+}
+
+.btn-success {
+    background-color: #38a169;
+    color: white;
+}
+
+.dark-mode .btn-success {
+    background: linear-gradient(90deg, #00f7ff, #4f9dff);
+}
+
+.btn-danger {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.dark-mode .btn-danger {
+    background: linear-gradient(90deg, #ff00ff, #f56565);
+}
+
+.btn-secondary {
+    background-color: #718096;
+    color: white;
+}
+
+.dark-mode .btn-secondary {
+    background: linear-gradient(90deg, #4f9dff, #a0a0b8);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #3182ce;
+    color: #3182ce;
+}
+
+.dark-mode .btn-outline {
+    border-color: #00f7ff;
+    color: #00f7ff;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Stats grid with light mode default */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease-in;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode stat cards with neon borders and glow */
+.dark-mode .stat-card {
+    background: #12121c;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3), 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+.dark-mode .stat-card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.dark-mode .stat-card:hover {
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.3);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #3182ce;
+}
+
+/* Dark mode stat icon with neon gradient */
+.dark-mode .stat-icon {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #718096;
+}
+
+.dark-mode .stat-content h3 {
+    color: #a0a0b8;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.dark-mode .stat-value {
+    color: #f8f9fa;
+}
+
+.stat-value.positive {
+    color: #38a169;
+}
+
+.dark-mode .stat-value.positive {
+    color: #00f7ff;
+}
+
+.stat-value.negative {
+    color: #e53e3e;
+}
+
+.dark-mode .stat-value.negative {
+    color: #ff00ff;
+}
+
+/* Alert styles with light mode default */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background-color: #f0fff4;
+    border-color: #38a169;
+    color: #2f855a;
+}
+
+.dark-mode .alert-success {
+    background-color: rgba(0, 247, 255, 0.1);
+    border-color: #00f7ff;
+    color: #00f7ff;
+}
+
+.alert-warning {
+    background-color: #fffbf0;
+    border-color: #ed8936;
+    color: #c05621;
+}
+
+.dark-mode .alert-warning {
+    background-color: rgba(79, 157, 255, 0.1);
+    border-color: #4f9dff;
+    color: #4f9dff;
+}
+
+.alert-danger {
+    background-color: #fed7d7;
+    border-color: #e53e3e;
+    color: #c53030;
+}
+
+.dark-mode .alert-danger {
+    background-color: rgba(255, 0, 255, 0.1);
+    border-color: #ff00ff;
+    color: #ff00ff;
+}
+
+/* Charts section with vertical layout */
+.charts-section {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.chart-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    animation: fadeIn 0.6s ease-in;
+}
+
+/* Dark mode chart container with neon styling */
+.dark-mode .chart-container {
+    background: #12121c;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3), 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+.dark-mode .chart-container::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.chart-container h3 {
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+/* Dark mode chart title with neon gradient */
+.dark-mode .chart-container h3 {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Chart placeholders */
+.chart-placeholder {
+    height: 300px;
+    background: #f7fafc;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #718096;
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+
+.chart-placeholder:hover {
+    border-color: #3182ce;
+    background-color: #edf2f7;
+}
+
+/* Dark mode chart placeholder with neon effects */
+.dark-mode .chart-placeholder {
+    background: transparent;
+    border: 2px dashed #00f7ff;
+    color: #a0a0b8;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.2);
+}
+
+.dark-mode .chart-placeholder:hover {
+    border-color: #ff00ff;
+    background: transparent;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+/* Recent transactions */
+.recent-transactions {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    animation: fadeIn 0.6s ease-in;
+}
+
+/* Dark mode recent transactions with neon styling */
+.dark-mode .recent-transactions {
+    background: #12121c;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3), 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+.dark-mode .recent-transactions::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.recent-transactions h3 {
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.dark-mode .recent-transactions h3 {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transaction-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f7fafc;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.transaction-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode transaction items */
+.dark-mode .transaction-item {
+    background: #181824;
+    border: 1px solid rgba(0, 247, 255, 0.2);
+}
+
+.dark-mode .transaction-item:hover {
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+    border-color: #00f7ff;
+}
+
+.transaction-description {
+    font-weight: 500;
+    color: #2d3748;
+    padding-left: 2rem;
+}
+
+.dark-mode .transaction-description {
+    color: #f8f9fa;
+}
+
+.transaction-category {
+    color: #718096;
+    font-size: 0.875rem;
+}
+
+.dark-mode .transaction-category {
+    color: #a0a0b8;
+}
+
+.transaction-amount {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.transaction-amount.positive {
+    color: #38a169;
+}
+
+.dark-mode .transaction-amount.positive {
+    color: #00f7ff;
+}
+
+.transaction-amount.negative {
+    color: #e53e3e;
+}
+
+.dark-mode .transaction-amount.negative {
+    color: #ff00ff;
+}
+
+.transaction-date {
+    color: #718096;
+    font-size: 0.875rem;
+    text-align: right;
+}
+
+.dark-mode .transaction-date {
+    color: #a0a0b8;
+}
