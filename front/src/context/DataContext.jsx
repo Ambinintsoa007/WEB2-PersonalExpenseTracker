@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect} from "react";
+import {useAuth} from "./AuthContext.jsx";
 
 const DataContext = createContext(undefined)
 
@@ -13,30 +14,44 @@ export const useData = () => {
 }
 
 export const DataProvider = ({children}) => {
+    const { user } = useAuth()
     const [expenses, setExpenses] = useState([]);
     const [incomes, setIncomes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [receipts, setReceipts] = useState([]);
     const [profile, setProfile] = useState({
-        username: "Dylan",
-        email: "xD@example.com",
+        username: "loading...",
+        email: "Loading...",
         createdAt: new Date().toISOString().split('T')[0]
     });
 
-    //load data from localstorage on mount
     useEffect(() => {
-        if(typeof window !== "undefined") {
+        if(user){
+            setProfile({
+                username: user.name || user.email?.split('@'[0]) || 'User',
+                email: user.email || '',
+                createdAt: user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+            })
+        }
+    }, [user]);
+
+
+    useEffect(() => {
+        if(typeof window !== "undefined" && user) {
+
             const loadData = () => {
-                const savedExpenses = localStorage.getItem("expenses");
-                const savedIncomes = localStorage.getItem("incomes");
-                const savedCategories = localStorage.getItem("categories");
-                const savedReceipts = localStorage.getItem("receipts");
-                const savedProfile = localStorage.getItem("profile");
+                const userId = user.id
+
+                const savedExpenses = localStorage.getItem(`expenses_${userId}`);
+                const savedIncomes = localStorage.getItem(`incomes_${userId}`);
+                const savedCategories = localStorage.getItem(`categories_${userId}`);
+                const savedReceipts = localStorage.getItem(`receipts_${userId}`);
+                const savedProfile = localStorage.getItem(`profile_${userId}`);
 
                 if(savedExpenses) setExpenses(JSON.parse(savedExpenses));
                 if(savedIncomes) setIncomes(JSON.parse(savedIncomes));
                 if(savedCategories) setCategories(JSON.parse(savedCategories));
-                else setCategories(["FFood", "Transport", "Entertainment", "Utilities", "Healthcare"])
+                else setCategories(["Food", "Transport", "Entertainment", "Utilities", "Healthcare"])
                 if(savedReceipts) setReceipts(JSON.parse(savedReceipts));
                 if(savedProfile) setProfile(JSON.parse(savedProfile));
             }
@@ -45,41 +60,43 @@ export const DataProvider = ({children}) => {
         }
     }, []);
 
-    //save in localStorage chaque fois que le data changes
-    useEffect(() => {
-        if(typeof window !== "undefined") {
-            localStorage.setItem("expenses", JSON.stringify(expenses));
-        }
-    }, [expenses])
 
     useEffect(() => {
-        if(typeof window !== "undefined") {
-            localStorage.setItem("incomes", JSON.stringify(incomes));
+        if(typeof window !== "undefined" && user?.id) {
+            localStorage.setItem(`expenses_${user.id}`, JSON.stringify(expenses));
         }
-    }, [incomes])
+    }, [expenses, user])
 
     useEffect(() => {
-        if(typeof window !== "undefined") {
-            localStorage.setItem("categories", JSON.stringify(categories));
+        if(typeof window !== "undefined" && user?.id) {
+            localStorage.setItem(`incomes_${user.id}`, JSON.stringify(incomes));
         }
-    }, [categories])
+    }, [incomes, user])
 
     useEffect(() => {
-        if(typeof window !== "undefined") {
-            localStorage.setItem("receipts", JSON.stringify(receipts));
+        if(typeof window !== "undefined" && user?.id) {
+            localStorage.setItem(`categories_${user.id}`, JSON.stringify(categories));
         }
-    }, [receipts])
+    }, [categories, user])
 
     useEffect(() => {
-        if(typeof window !== "undefined") {
-            localStorage.setItem("profile", JSON.stringify(profile));
+        if(typeof window !== "undefined" && user?.id) {
+            localStorage.setItem(`receipts_${user.id}`, JSON.stringify(receipts));
         }
-    }, [profile])
+    }, [receipts, user])
+
+    useEffect(() => {
+        if(typeof window !== "undefined" && user?.id) {
+            localStorage.setItem(`profile_${user.id}`, JSON.stringify(profile));
+        }
+    }, [profile, user])
+
+
 
     const addExpense = (expense) => {
         const newExpense = {
             ...expense,
-            iid: Date.now(),
+            id: Date.now(),
             date: new Date().toISOString().split('T')[0],
         }
         setExpenses((prev) => [...prev, newExpense])
