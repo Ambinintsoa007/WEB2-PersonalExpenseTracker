@@ -748,3 +748,256 @@ body.dark-mode {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
 }
+
+/* Profile styles */
+.profile-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+
+.settings-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    animation: fadeIn 0.6s ease-in;
+}
+
+.profile-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    animation: fadeIn 0.6s ease-in;
+    width: 60%;
+    margin-left: 20%;
+}
+/* Dark mode profile cards with neon styling */
+.dark-mode .profile-card,
+.dark-mode .settings-card {
+    background: #12121c;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3), 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+.dark-mode .profile-card::before,
+.dark-mode .settings-card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.profile-avatar {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3182ce, #2b6cb0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+/* Dark mode avatar with neon gradient */
+.dark-mode .avatar-circle {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+}
+
+.profile-info .info-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.profile-info .info-group label {
+    display: block;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.dark-mode .profile-info .info-group label {
+    color: #f8f9fa;
+}
+
+.info-value {
+    color: #718096;
+}
+
+.dark-mode .info-value {
+    color: #a0a0b8;
+}
+
+.username-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.username-text {
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.dark-mode .username-text {
+    color: #f8f9fa;
+}
+
+.edit-username {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.username-input {
+    padding: 0.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.dark-mode .username-input {
+    background: #181824;
+    border-color: #4a5568;
+    color: #f8f9fa;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.settings-card h3 {
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+/* Dark mode settings title with neon gradient */
+.dark-mode .settings-card h3 {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dark-mode .setting-item {
+    border-bottom: 1px solid rgba(160, 160, 184, 0.2);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-info h4 {
+    color: #2d3748;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.dark-mode .setting-info h4 {
+    color: #f8f9fa;
+}
+
+.setting-info p {
+    color: #718096;
+    font-size: 0.875rem;
+}
+
+.dark-mode .setting-info p {
+    color: #a0a0b8;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e0;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.toggle input:checked + .toggle-slider {
+    background: linear-gradient(90deg, #3182ce, #2b6cb0);
+}
+
+/* Dark mode toggle with neon gradient */
+.dark-mode .toggle input:checked + .toggle-slider {
+    background: linear-gradient(90deg, #00f7ff, #ff00ff);
+}
+
+.toggle input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
