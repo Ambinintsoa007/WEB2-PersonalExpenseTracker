@@ -17,7 +17,7 @@ export async function signup(req, res) {
         console.error(error);
         res.status(500).json({ error: 'Signup failed' });
     }
-}
+}0
 
 export async function login(req, res) {
     try {
