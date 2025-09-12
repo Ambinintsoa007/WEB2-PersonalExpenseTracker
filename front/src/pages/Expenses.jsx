@@ -185,7 +185,7 @@ const Expenses = () => {
                                 <button className="btn btn-sm btn-edit" onClick={() => handleEdit(expense)}>
                                     ✏️
                                 </button>
-                                <button className="btn btn-sm btn-edit" onClick={() => handleEdit(expense.id)} title="Delete expense">
+                                <button className="btn btn-sm btn-edit" onClick={() => handleDelete(expense.id)} title="Delete expense">
                                     🗑️
                                 </button>
                             </td>
