@@ -11,10 +11,9 @@ import {
 
 const router = express.Router();
 
-// 📌 Config Multer pour upload de reçus
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // dossier "uploads/"
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
@@ -22,7 +21,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Routes
 router.post("/", authenticateToken, upload.single("receipt"), createExpense);
 router.get("/", authenticateToken, getExpenses);
 router.get("/:id", authenticateToken, getExpenseById);

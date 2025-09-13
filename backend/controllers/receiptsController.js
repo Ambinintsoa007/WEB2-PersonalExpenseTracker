@@ -3,16 +3,8 @@ import fs from "fs";
 import pool from "../db/index.js";
 import { fileURLToPath } from "url";
 
-
-
-// Pour reconstituer  en ESM
-
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Télécharger ou voir un reçu
-
 
 export const getReceipt = async (req, res) => {
   const userId = req.user.id;
@@ -45,7 +37,6 @@ export const getReceipt = async (req, res) => {
   }
 };
 
-// Placeholder pour upload (sera complété plus tard)
 export const uploadReceipt = async (req, res) => {
   res.status(501).json({ message: "Upload not implemented yet" });
 };

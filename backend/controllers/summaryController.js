@@ -1,12 +1,12 @@
 import pool from '../db/index.js';
 
-//  Récupérer le résumé mensuel (dépenses + revenus + balance par mois)
 export const getMonthlySummary = async (req, res) => {
   const userId = req.user.id;
   const { month } = req.query;
 
   try {
-    let query = `&&&&
+
+    let query = `
       SELECT 
           DATE_TRUNC('month', date) AS month,
           SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) AS total_expenses,
@@ -15,19 +15,26 @@ export const getMonthlySummary = async (req, res) => {
            SUM(CASE WHEN type='expense' THEN amount ELSE 0 END)) AS balance
       FROM (
           SELECT amount, date, 'expense' AS type
-          FROM expenses WHERE user_id = $1
+          FROM expenses
+          WHERE user_id = $1
           UNION ALL
           SELECT amount, date, 'income' AS type
-          FROM incomes WHERE user_id = $1
+          FROM incomes
+          WHERE user_id = $1
       ) t
     `;
 
     const params = [userId];
 
-    
-    // Filtre par mois spécifique si fourni
+
     if (month) {
-      query += ` WHERE DATE_TRUNC('month', date) = DATE_TRUNC('month', TO_DATE($2, 'YYYY-MM')) `;
+
+      const regex = /^\d{4}-\d{2}$/;
+      if (!regex.test(month)) {
+        return res.status(400).json({ error: "Le paramètre 'month' doit être au format YYYY-MM" });
+      }
+
+      query += ` WHERE DATE_TRUNC('month', t.date) = TO_DATE($2, 'YYYY-MM') `;
       params.push(month);
     }
 
@@ -37,10 +44,11 @@ export const getMonthlySummary = async (req, res) => {
 
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
+    console.error("Erreur summary :", err.message);
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
+
 
 
 // Récupérer le résumé par intervalle de dates (start / end)
@@ -77,7 +85,7 @@ export const getSummaryByRange = async (req, res) => {
   }
 };
 
-// Générer des alertes (exemple : si les dépenses > revenus)
+
 export const getAlerts = async (req, res) => {
   const userId = req.user.id;
 

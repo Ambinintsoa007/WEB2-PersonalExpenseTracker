@@ -53,8 +53,6 @@ const Categories = () => {
                             <div className="category-actions">
                                 <button className="btn btn-sm btn-danger"
                                         onClick={() => handleDeleteCategory(category)}>Delete</button>
-                                <button className="btn btn-sm btn-danger"
-                                        onClick={() => handleDeleteCategory(category)}>Delete</button>
                             </div>
                         </div>
                     </div>
