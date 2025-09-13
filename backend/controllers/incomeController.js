@@ -47,7 +47,7 @@ export const createIncome = async (req, res) => {
     const result = await pool.query(
       `INSERT INTO incomes (user_id, amount, date, source, description, created_at)
        VALUES ($1,$2,$3,$4,$5,NOW()) RETURNING *`,
-      [userId, parseFloat(amount), date ? new Date(date) : new Date(), source, description || null]
+      [userId, parseFloat(amount), date || new Date() , source, description || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {

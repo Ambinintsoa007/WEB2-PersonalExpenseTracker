@@ -136,19 +136,6 @@ export const DataProvider = ({ children }) => {
     };
 
 
-    useEffect(() => {
-        if (user && token) {
-            fetch("http://localhost:8080/api/incomes", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => setIncomes(data))
-                .catch((err) => console.error("Erreur chargement revenus", err));
-        }
-    }, [user, token]);
-
     const addIncome = async (income) => {
         try {
             const token = localStorage.getItem("token");
@@ -172,6 +159,19 @@ export const DataProvider = ({ children }) => {
             console.error("Add income error:", error);
         }
     };
+
+    useEffect(() => {
+        if (user && token) {
+            fetch("http://localhost:8080/api/incomes", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setIncomes(data))
+                .catch((err) => console.error("Erreur chargement revenus", err));
+        }
+    }, [user, token]);
 
 
     const updateIncome = (id, updatedIncome) => {

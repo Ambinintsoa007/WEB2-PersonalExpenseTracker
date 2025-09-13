@@ -123,7 +123,7 @@ const Expenses = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Receipt (optional)</label>
+                            <label>Receipt</label>
                             <input
                                 type="text"
                                 name="receipt"

@@ -5,7 +5,7 @@ import { getAllIncomes, getIncomeById, createIncome, updateIncome, deleteIncome 
 const router = express.Router();
 router.get('/', getAllIncomes);
 router.get('/:id', getIncomeById);
-router.post('/incomes', createIncome);
+router.post('/', createIncome);
 router.put('/:id', updateIncome);
 router.delete('/:id', deleteIncome);
 
