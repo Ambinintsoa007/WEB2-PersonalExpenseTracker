@@ -1,8 +1,7 @@
 import pool from "../db/index.js";
 import fs from "fs";
 
-
-//    Créer une dépense
+// Créer une dépense
 export async function createExpense(req, res) {
   try {
     const {
@@ -13,13 +12,15 @@ export async function createExpense(req, res) {
       is_recurring,
       start_date,
       end_date,
+      receipt // <-- Ajouté pour le champ texte
     } = req.body;
 
     if (!amount) {
       return res.status(400).json({ error: "Le montant est obligatoire" });
     }
 
-    const receiptPath = req.file ? req.file.path : null;
+    // Si tu utilises un upload de fichier, garde req.file.path, sinon utilise le champ texte
+    const receiptPath = req.file ? req.file.path : receipt || null;
 
     const result = await pool.query(
       `INSERT INTO expenses 
@@ -46,8 +47,7 @@ export async function createExpense(req, res) {
   }
 }
 
-
-//  Récupérer toutes les dépenses de l’utilisateur (option filtre par dates)
+// Récupérer toutes les dépenses de l’utilisateur
 export async function getExpenses(req, res) {
   try {
     const { start_date, end_date } = req.query;
@@ -60,14 +60,14 @@ export async function getExpenses(req, res) {
     }
 
     const result = await pool.query(query, values);
-    res.json(result.rows);
+    res.json(result.rows); // receipt_path inclus
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Impossible de récupérer les dépenses" });
   }
 }
 
-//  Récupérer une dépense par ID
+// Récupérer une dépense par ID
 export async function getExpenseById(req, res) {
   try {
     const { id } = req.params;
@@ -87,7 +87,7 @@ export async function getExpenseById(req, res) {
   }
 }
 
-//  Mettre à jour une dépense
+// Mettre à jour une dépense
 export async function updateExpense(req, res) {
   try {
     const { id } = req.params;
@@ -99,9 +99,10 @@ export async function updateExpense(req, res) {
       is_recurring,
       start_date,
       end_date,
+      receipt // <-- Ajouté pour le champ texte
     } = req.body;
 
-    const receiptPath = req.file ? req.file.path : null;
+    const receiptPath = req.file ? req.file.path : receipt || null;
 
     const result = await pool.query(
       `UPDATE expenses 
@@ -137,7 +138,7 @@ export async function updateExpense(req, res) {
   }
 }
 
-//  Supprimer une dépense
+// Supprimer une dépense
 export async function deleteExpense(req, res) {
   try {
     const { id } = req.params;
