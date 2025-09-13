@@ -1,5 +1,7 @@
 import { useData  } from "../context/DataContext.jsx";
 import '../App.css'
+import {PieChartExpenseCategories} from "../components/PieChartExpenseCategories.jsx";
+import {ExpensesChart} from "../components/ExpenseChart.jsx";
 
 const Dashboard = () => {
     const { getTotalIncome, getTotalExpenses, getRemainingBalance, expenses } = useData();
@@ -62,12 +64,12 @@ const Dashboard = () => {
             <div className="charts-section">
                 <div className="chart-container full-width">
                     <h3>Monthly Expenses</h3>
-                    <div className="chart-container"><p>Eto le bar chart</p></div>
+                    <ExpensesChart/>
                 </div>
 
                 <div className="chart-container full-width">
                     <h3>Expense Categories</h3>
-                    <div className="chart-container"><p>Eto le pie chart</p></div>
+                    <PieChartExpenseCategories/>
                 </div>
             </div>
 
