@@ -1,53 +1,38 @@
 import pool from "../db/index.js";
 import fs from "fs";
 
-// Créer une dépense
-export async function createExpense(req, res) {
-  try {
-    const {
-      amount,
-      description,
-      category_id,
-      date,
-      is_recurring,
-      start_date,
-      end_date,
-      receipt // <-- Ajouté pour le champ texte
-    } = req.body;
 
-    if (!amount) {
-      return res.status(400).json({ error: "Le montant est obligatoire" });
-    }
 
-    // Si tu utilises un upload de fichier, garde req.file.path, sinon utilise le champ texte
-    const receiptPath = req.file ? req.file.path : receipt || null;
-
-    const result = await pool.query(
-      `INSERT INTO expenses 
+export const createExpense = async (req, res) => {
+    try {
+        const { category_id, amount, description, date, is_recurring, start_date, end_date } = req.body;
+        const receiptPath = req.file ? req.file.path : null;
+        const result = await pool.query(
+            `INSERT INTO expenses 
         (user_id, category_id, amount, description, date, is_recurring, receipt_path, start_date, end_date) 
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) 
        RETURNING *`,
-      [
-        req.user.id,
-        category_id || null,
-        amount,
-        description || null,
-        date || new Date(),
-        is_recurring || false,
-        receiptPath,
-        start_date || null,
-        end_date || null,
-      ]
-    );
+            [
+                req.user.id,
+                category_id ? parseInt(category_id) : null,
+                parseFloat(amount),
+                description || null,
+                date ? new Date(date) : new Date(),
+                is_recurring === true || is_recurring === 'true',
+                receiptPath,
+                start_date ? new Date(start_date) : null,
+                end_date ? new Date(end_date) : null,
+            ]
+        );
 
-    res.status(201).json(result.rows[0]);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Impossible de créer la dépense" });
-  }
-}
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error("Impossible de créer la dépense:", error.message);
+        res.status(500).json({ error: "Impossible de créer la dépense" });
+    }
+};
 
-// Récupérer toutes les dépenses de l’utilisateur
+
 export async function getExpenses(req, res) {
   try {
     const { start_date, end_date } = req.query;
@@ -67,7 +52,7 @@ export async function getExpenses(req, res) {
   }
 }
 
-// Récupérer une dépense par ID
+
 export async function getExpenseById(req, res) {
   try {
     const { id } = req.params;
@@ -87,7 +72,7 @@ export async function getExpenseById(req, res) {
   }
 }
 
-// Mettre à jour une dépense
+
 export async function updateExpense(req, res) {
   try {
     const { id } = req.params;
@@ -138,12 +123,11 @@ export async function updateExpense(req, res) {
   }
 }
 
-// Supprimer une dépense
+
 export async function deleteExpense(req, res) {
   try {
     const { id } = req.params;
 
-    // Récupérer la dépense avant suppression (pour supprimer le fichier reçu)
     const expense = await pool.query(
       `SELECT * FROM expenses WHERE id=$1 AND user_id=$2`,
       [id, req.user.id]
@@ -155,7 +139,6 @@ export async function deleteExpense(req, res) {
         .json({ error: "Dépense non trouvée ou non autorisée" });
     }
 
-    // Supprimer le fichier reçu si existe
     if (expense.rows[0].receipt_path) {
       fs.unlink(expense.rows[0].receipt_path, (err) => {
         if (err) console.error("Erreur suppression fichier :", err);

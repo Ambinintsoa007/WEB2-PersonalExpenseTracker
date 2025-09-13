@@ -1,6 +1,5 @@
 import pool from '../db/index.js';
 
-// Lister tous les revenus d’un utilisateur
 export const getAllIncomes = async (req, res) => {
   const userId = req.user.id;
   const { start, end } = req.query;
@@ -22,7 +21,6 @@ export const getAllIncomes = async (req, res) => {
   }
 };
 
-// Récupérer un revenu par ID
 export const getIncomeById = async (req, res) => {
   const userId = req.user.id;
   const incomeId = req.params.id;
@@ -41,7 +39,6 @@ export const getIncomeById = async (req, res) => {
   }
 };
 
-// Créer un revenu
 export const createIncome = async (req, res) => {
   const userId = req.user.id;
   const { amount, date, source, description } = req.body;
@@ -50,7 +47,7 @@ export const createIncome = async (req, res) => {
     const result = await pool.query(
       `INSERT INTO incomes (user_id, amount, date, source, description, created_at)
        VALUES ($1,$2,$3,$4,$5,NOW()) RETURNING *`,
-      [userId, amount, date, source, description]
+      [userId, parseFloat(amount), date ? new Date(date) : new Date(), source, description || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -59,7 +56,6 @@ export const createIncome = async (req, res) => {
   }
 };
 
-// Mettre à jour un revenu
 export const updateIncome = async (req, res) => {
   const userId = req.user.id;
   const incomeId = req.params.id;
@@ -80,7 +76,6 @@ export const updateIncome = async (req, res) => {
   }
 };
 
-// Supprimer un revenu
 export const deleteIncome = async (req, res) => {
   const userId = req.user.id;
   const incomeId = req.params.id;

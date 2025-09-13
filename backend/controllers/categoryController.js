@@ -1,6 +1,5 @@
 import pool from '../db/index.js';
 
-// Lister toutes les catégories d’un utilisateur
 export const getCategories = async (req, res) => {
   const userId = req.user.id;
 
@@ -16,10 +15,9 @@ export const getCategories = async (req, res) => {
   }
 };
 
-// Créer une nouvelle catégorie
 export const createCategory = async (req, res) => {
   const userId = req.user.id;
-  const { name, type } = req.body; // type: 'expense' ou 'income'
+  const { name, type } = req.body;
 
   try {
     const result = await pool.query(
@@ -34,7 +32,6 @@ export const createCategory = async (req, res) => {
   }
 };
 
-// Mettre à jour une catégorie
 export const updateCategory = async (req, res) => {
   const userId = req.user.id;
   const categoryId = req.params.id;
@@ -59,7 +56,6 @@ export const updateCategory = async (req, res) => {
   }
 };
 
-// Supprimer une catégorie
 export const deleteCategory = async (req, res) => {
   const userId = req.user.id;
   const categoryId = req.params.id;
