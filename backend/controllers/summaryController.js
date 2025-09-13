@@ -1,12 +1,12 @@
 import pool from '../db/index.js';
 
-// 📌 Récupérer le résumé mensuel (dépenses + revenus + balance par mois)
+//  Récupérer le résumé mensuel (dépenses + revenus + balance par mois)
 export const getMonthlySummary = async (req, res) => {
   const userId = req.user.id;
   const { month } = req.query;
 
   try {
-    let query = `
+    let query = `&&&&
       SELECT 
           DATE_TRUNC('month', date) AS month,
           SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) AS total_expenses,
@@ -24,7 +24,8 @@ export const getMonthlySummary = async (req, res) => {
 
     const params = [userId];
 
-    // 📌 Filtre par mois spécifique si fourni
+    
+    // Filtre par mois spécifique si fourni
     if (month) {
       query += ` WHERE DATE_TRUNC('month', date) = DATE_TRUNC('month', TO_DATE($2, 'YYYY-MM')) `;
       params.push(month);
@@ -41,7 +42,8 @@ export const getMonthlySummary = async (req, res) => {
   }
 };
 
-// 📌 Récupérer le résumé par intervalle de dates (start / end)
+
+// Récupérer le résumé par intervalle de dates (start / end)
 export const getSummaryByRange = async (req, res) => {
   const userId = req.user.id;
   const { start, end } = req.query;
@@ -75,7 +77,7 @@ export const getSummaryByRange = async (req, res) => {
   }
 };
 
-// 📌 Générer des alertes (exemple : si les dépenses > revenus)
+// Générer des alertes (exemple : si les dépenses > revenus)
 export const getAlerts = async (req, res) => {
   const userId = req.user.id;
 
