@@ -1,0 +1,31 @@
+.modal-content button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.receipt-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+.receipt-content > strong,
+.receipt-content > span {
+    margin: 0;
+}
+.receipt-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.btn.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+}

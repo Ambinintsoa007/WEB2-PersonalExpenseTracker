@@ -2,11 +2,11 @@ import pool from "../db/index.js";
 import fs from "fs";
 
 
+
 export const createExpense = async (req, res) => {
     try {
         const { category_id, amount, description, date, is_recurring, start_date, end_date } = req.body;
         const receiptPath = req.file ? req.file.path : null;
-
         const result = await pool.query(
             `INSERT INTO expenses 
         (user_id, category_id, amount, description, date, is_recurring, receipt_path, start_date, end_date) 
@@ -45,12 +45,13 @@ export async function getExpenses(req, res) {
     }
 
     const result = await pool.query(query, values);
-    res.json(result.rows);
+    res.json(result.rows); // receipt_path inclus
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Impossible de récupérer les dépenses" });
   }
 }
+
 
 export async function getExpenseById(req, res) {
   try {
@@ -71,6 +72,7 @@ export async function getExpenseById(req, res) {
   }
 }
 
+
 export async function updateExpense(req, res) {
   try {
     const { id } = req.params;
@@ -82,9 +84,10 @@ export async function updateExpense(req, res) {
       is_recurring,
       start_date,
       end_date,
+      receipt // <-- Ajouté pour le champ texte
     } = req.body;
 
-    const receiptPath = req.file ? req.file.path : null;
+    const receiptPath = req.file ? req.file.path : receipt || null;
 
     const result = await pool.query(
       `UPDATE expenses 
@@ -119,6 +122,7 @@ export async function updateExpense(req, res) {
     res.status(500).json({ error: "Impossible de mettre à jour la dépense" });
   }
 }
+
 
 export async function deleteExpense(req, res) {
   try {
