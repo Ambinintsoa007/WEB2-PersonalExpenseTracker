@@ -112,7 +112,7 @@ const Incomes = () => {
                                 name="description"
                                 value={formData.description}
                                 onChange={handleInputChange}
-                                placeholder={"Enter description (optional)"}
+                                placeholder={"Enter description"}
                             />
                         </div>
 
