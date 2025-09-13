@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
+
+
+
 // PostgreSQL
 import pool from "./db/index.js"; // pool sera l’objet exporté par module.exports
 
@@ -52,6 +55,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Personal Expense Tracker API" });
 });
 
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 // ---------------------------
 // Start server
 // ---------------------------
