@@ -60,7 +60,7 @@ export const ExpensesChart = () => {
                     throw new Error('Utilisateur non authentifié. Veuillez vous connecter.');
                 }
 
-                const response = await fetch(``,
+                const response = await fetch(`http://localhost:8080/api/summary/monthly`,
                     {
                         method: 'GET',
                         headers: {
